@@ -39,6 +39,7 @@ function preload() {
 
 function create() {
  //  We're going to be using physics, so enable the Arcade Physics system
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
     w = game.width;
     //  A simple background for our game
@@ -46,14 +47,14 @@ function create() {
     bg2 = game.add.sprite(w, 0, 'bg2');
     bg3 = game.add.sprite(2*w, 0, 'bg3');
     bg4 = game.add.sprite(3*w, 0, 'bg4');
-    cld1 = game.add.sprite(0, -120, 'cld1');
-    cld2 = game.add.sprite(w, -120, 'cld2');
-    cld3 = game.add.sprite(2*w, -120, 'cld3');
-    cld4 = game.add.sprite(3*w, -120, 'cld4');
-    mid1 = game.add.sprite(0, -120, 'mid1');
-    mid2 = game.add.sprite(w, -120, 'mid2');
-    mid3 = game.add.sprite(2*w, -120, 'mid3');
-    mid4 = game.add.sprite(3*w, -120, 'mid4');
+    cld1 = game.add.sprite(0, -90, 'cld1');
+    cld2 = game.add.sprite(w, -90, 'cld2');
+    cld3 = game.add.sprite(2*w, -90, 'cld3');
+    cld4 = game.add.sprite(3*w, -90, 'cld4');
+    mid1 = game.add.sprite(0, -90, 'mid1');
+    mid2 = game.add.sprite(w, -90, 'mid2');
+    mid3 = game.add.sprite(2*w, -90, 'mid3');
+    mid4 = game.add.sprite(3*w, -90, 'mid4');
 
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -66,26 +67,17 @@ function create() {
     platforms.enableBody = true;
 
     // Here we create the ground.
-    ground = platforms.create(0, -120, 'ground');
-
-    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(1, 1);
-
-    //  This stops it from falling away when you jump on it
-    ground.body.immovable = true;
-
-    //  Now let's create two ledges
-    var ledge = platforms.create(400, 400, 'ground');
-	platforms = game.add.group();
+    ground = game.add.sprite(0, -90, 'ground');
+	game.physics.arcade.enable(ground);
+	ground.body.immovable = true;
 
     //Create Stella
 
-	player = game.add.sprite(32, game.world.height - 150, 'stella_run');
-    player.anchor.setTo(.5);
+	player = game.add.sprite(60, game.world.height - 150, 'stella_run');
     //Enable arcade physics on Stella
 	game.physics.arcade.enable(player);
 
-    player.body.bounce.y = 0.1;
+    player.body.bounce.y = 0.2;
     player.body.gravity.y = 400;
     player.body.collideWorldBounds = true;
 	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 15, true);
@@ -107,7 +99,6 @@ function create() {
 
 
 function update() {
-	var hitPlatform = game.physics.arcade.collide(player, platforms); 
    	//Moves the background in parallax
 	var moveBackground = function(background) {      
 		if (background.x < -w) {        
@@ -149,7 +140,7 @@ function update() {
         jumpTimer = game.time.now + 750;
     }
 
-	var hitPlatform = game.physics.arcade.collide(player, ground);
+	    game.physics.arcade.collide(player, ground);
 
         //Attempt to Move the Player
 
