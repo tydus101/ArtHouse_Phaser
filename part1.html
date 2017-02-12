@@ -13,6 +13,7 @@
 <body>
 
 <script type="text/javascript">
+var jumpTimer = 0;
 
 var game = new Phaser.Game(1250, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
@@ -54,6 +55,8 @@ function create() {
     mid3 = game.add.sprite(2*w, -120, 'mid3');
     mid4 = game.add.sprite(3*w, -120, 'mid4');
 
+    jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
 
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
@@ -82,7 +85,7 @@ function create() {
     //Enable arcade physics on Stella
 	game.physics.arcade.enable(player);
 
-    player.body.bounce.y = 0.2;
+    player.body.bounce.y = 0.1;
     player.body.gravity.y = 400;
     player.body.collideWorldBounds = true;
 	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 15, true);
@@ -137,10 +140,13 @@ function update() {
 	moveClouds(cld2);
 	moveClouds(cld3);
 	moveClouds(cld4);
-	console.log(player.body.velocity.y);
-    if(player.body.velocity.y > 0){
 
-    	player.animations.play('right');
+
+    player.animations.play('right');
+    if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer)
+    {
+        player.body.velocity.y = -500;
+        jumpTimer = game.time.now + 750;
     }
 
 	var hitPlatform = game.physics.arcade.collide(player, ground);
