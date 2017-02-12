@@ -99,9 +99,9 @@ function create() {
     highScoreToDisplay = parseInt(localStorage.getItem("sleepyStarryHighScore"));
 }
     // Displays the High Score
-    var gameOverText = this.game.add.text(100, 100, "High Score: " +highScoreToDisplay.toString(), {font: "20pt Arial", fill: "#FFFFFF"});
-
+    var gameOverText = this.game.add.text(5, 10, "High Score: " +highScoreToDisplay.toString(), {font: "20pt Arial", fill: "#FFFFFF"});
 }
+
 
 function update() {
 	var hitPlatform = game.physics.arcade.collide(player, platforms); 
@@ -141,27 +141,6 @@ function update() {
 
 
 	var hitPlatform = game.physics.arcade.collide(player, ground);
-      // setting player x speed to zero
-      player.body.velocity.x = 0;
-
-        //Attempt to Move the Player
-
-            // is the player blocked down, that is: is the player on the floor?
-        if(player.body.blocked.down){
-               // set player horizontal velocity
-            player.body.velocity.x = 0;
-
-        }
-                // the player is definitively not jumping
-        /*
-        if(player.body.blocked.down && playerJumping = false){
-        // setting player vertical velocity
-        player.body.velocity.y = -100;
-          // setting player horizontal velocity
-        player.body.velocity.x = playerSpeed/4;
-          // now the player is jumping  
-        playerJumping = true;
-        */
 
 	player.body.velocity.y = 0;
 	player.body.velocity.x = 0;
