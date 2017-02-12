@@ -26,10 +26,7 @@ function preload() {
     game.load.image('mid3', 'assets/middleground1-3.png');
     game.load.image('mid4', 'assets/middleground1-4.png');
     game.load.image('ground', 'assets/ground1-1.png');
-    game.load.spritesheet('dude', 'assets/StellaRun1.png', 32, 48);
-    game.load.spritesheet('bluestar', 
-    	'assets/bluestarspin_sheet.png', 32, 48);
-    game.load.spritesheet('stella', 'assets/StellaRun1Smol.png', 100, 250);
+    game.load.spritesheet('stella', 'assets/StellaRun1Smol.png', 100, 100);
 }
 
 function create() {
@@ -41,6 +38,11 @@ function create() {
     bg2 = game.add.sprite(1250, 0, 'bg2');
     bg3 = game.add.sprite(2500, 0, 'bg3');
     bg4 = game.add.sprite(3750, 0, 'bg4');
+    mid1 = game.add.sprite(0, -120, 'mid1');
+    mid2 = game.add.sprite(1250, -120, 'mid2');
+    mid3 = game.add.sprite(2500, -120, 'mid3');
+    mid4 = game.add.sprite(3750, -120, 'mid4');
+
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
@@ -105,16 +107,20 @@ function update() {
 			background.x -= 1;      
 		} else {}        
 		background.x -=1;    }
-	var moveMiddleground = function(middleground) {      
+	var moveMiddleground = function(background) {      
 		if (background.x < -1250) {        
 			background.x = 3750;        
-			background.x -= 1;      
+			background.x -= 2.5;      
 		} else {}        
-		background.x -=1;    }
+		background.x -=2.5;    }
 	moveBackground(bg1);    
 	moveBackground(bg2);
 	moveBackground(bg3);    
-	moveBackground(bg4); 
+	moveBackground(bg4);
+	moveMiddleground(mid1);
+	moveMiddleground(mid2);
+	moveMiddleground(mid3);
+	moveMiddleground(mid4);
 }
 
 	var hitPlatform = game.physics.arcade.collide(player, platforms);
