@@ -61,12 +61,21 @@ function create() {
     var ledge = platforms.create(400, 400, 'ground');
 	platforms = game.add.group();
 
-    //Create Stella
-	player = game.add.sprite(32, game.world.height - 150, 'stella');
+    // player horizontal speed
+    playerSpeed = 120;
 
+    // is the player jumping?
+    playerJumping = false;
+
+    //Create Stella
+
+	player = game.add.sprite(32, game.world.height - 150, 'stella');
+    player.anchor.setTo(.5);
+    //Enable arcade physics on Stella
 	game.physics.arcade.enable(player);
+
     player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
+    player.body.gravity.y = 400;
     player.body.collideWorldBounds = true;
 	player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -84,23 +93,6 @@ function create() {
 }
     // Displays the High Score
     var gameOverText = this.game.add.text(100, 100, "High Score: " +highScoreToDisplay.toString(), {font: "20pt Arial", fill: "#FFFFFF"});
-
-    
-    /*
-    / Get the Steela image to use
-    var stella = document.getElementById('star'),
-    ctx = stella.getContext("2d");
-
-    stella.width = stella.height =300;
-
-    var x = 150, //initial x
-        y = 150,  // initial y
-        velY = 0,
-        velX = 0,
-        speed = 2, // max speed
-        friction = 0.98, // friction
-        keys = [];
-    */
 
 }
 
@@ -125,72 +117,18 @@ function update() {
 	moveBackground(bg4); 
 }
 
-/*
-    requestAnimationFrame(update);
+	var hitPlatform = game.physics.arcade.collide(player, platforms);
+      // setting player x speed to zero
+      player.body.velocity.x = 0;
 
-    // check the keys and do the movement.
-    if (keys[38]) {
-        if (velY > -speed) {
-            velY--;
+        //Attempt to Move the Player
+
+         // is the player blocked down, that is: is the player on the floor?
+         if(player.body.blocked.down){
+               // set player horizontal velocity
+            player.body.velocity.x = playerSpeed;
         }
-    }
-
-    if (keys[40]) {
-        if (velY < speed) {
-            velY++;
-        }
-    }
-    if (keys[39]) {
-        if (velX < speed) {
-            velX++;
-        }
-    }
-    if (keys[37]) {
-        if (velX > -speed) {
-            velX--;
-        }
-    }
-
-    // apply some friction to y velocity.
-    velY *= friction;
-    y += velY;
-
-    // apply some friction to x velocity.
-    velX *= friction;
-    x += velX;
-
-    // bounds checking
-    if (x >= 295) {
-        x = 295;
-    } else if (x <= 5) {
-        x = 5;
-    }
-
-    if (y > 295) {
-        y = 295;
-    } else if (y <= 5) {
-        y = 5;
-    }
-
-    // do the drawing
-    ctx.clearRect(0, 0, 300, 300);
-    ctx.beginPath();
-    ctx.arc(x, y, 5, 0, Math.PI * 2);
-    ctx.fill();
-
 }
-
-//update();
-
-// key events
-document.body.addEventListener("keydown", function (e) {
-    keys[e.keyCode] = true;
-});
-document.body.addEventListener("keyup", function (e) {
-    keys[e.keyCode] = false;
-});
-
-*/
 
 </script>
 
