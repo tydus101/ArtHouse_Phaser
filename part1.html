@@ -32,6 +32,7 @@ function preload() {
     game.load.image('cld4', 'assets/bigcloud1-4.png');
     game.load.image('ground', 'assets/ground1-1.png');
     game.load.spritesheet('stella_run', 'assets/StellaRun1Smol.png', 125, 125);
+    game.load.spritesheet('stella', 'assets/StellaAnimationFull1.png', 125, 125);
     game.load.spritesheet('stella_jump', 'assets/StellaJump1Smol.png', 125, 125);
     game.load.spritesheet('stella_fall', 'assets/StellaFall1Smol.png', 125, 120);
     game.load.spritesheet('stella_land', 'assets/StellaLand1Smol.png', 125, 125);
@@ -73,7 +74,7 @@ function create() {
 
     //Create Stella
 
-	player = game.add.sprite(60, game.world.height - 150, 'stella_run');
+	player = game.add.sprite(60, game.world.height - 150, 'stella');
     //Enable arcade physics on Stella
 	game.physics.arcade.enable(player);
 
@@ -81,6 +82,7 @@ function create() {
     player.body.gravity.y = 400;
     player.body.collideWorldBounds = true;
 	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 15, true);
+	player.animations.add('jump', [16, 17, 18, 19, 20, 21, 22, 23, 24], 15, true);
 
     //Create Jellyfish
     jellyfish = game.add.sprite(500, -120, 'jellyfish');
@@ -153,11 +155,15 @@ function update() {
 	moveClouds(cld4);
 
 
-    player.animations.play('right');
+
     if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer)
     {
+    	player.animations.toggleAnimation('right');
         player.body.velocity.y = -500;
         jumpTimer = game.time.now + 750;
+    }
+    else {
+    	player.animations.play('right');
     }
 	    game.physics.arcade.collide(player, ground);
 
