@@ -35,6 +35,7 @@ function preload() {
     game.load.spritesheet('stella_jump', 'assets/StellaJump1Smol.png', 125, 125);
     game.load.spritesheet('stella_fall', 'assets/StellaFall1Smol.png', 125, 120);
     game.load.spritesheet('stella_land', 'assets/StellaLand1Smol.png', 125, 125);
+    game.load.spritesheet('jellyfish', 'assets/JellyFloat1Smol.png', 125, 125);
 }
 
 function create() {
@@ -56,8 +57,6 @@ function create() {
     mid4 = game.add.sprite(3*w, -120, 'mid4');
 
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
@@ -89,6 +88,15 @@ function create() {
     player.body.gravity.y = 400;
     player.body.collideWorldBounds = true;
 	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 15, true);
+
+    //Create Jellyfish
+    jellyfish = game.add.sprite(50, -120, 'jellyfish');
+    //Enable arcade physics on Jellyfish
+    game.physics.arcade.enable(jellyfish);
+
+    jellyfish.body.bounce.y = 0.1;
+    jellyfish.body.gravity.y = 400;
+    jellyfish.body.collideWorldBounds = true;
 
     // Create a local high score
     var highScore = 100; 
@@ -156,6 +164,15 @@ function update() {
         if(player.body.blocked.down){
                // set player horizontal velocity
             player.body.velocity.x = 0;
+
+        }
+
+  
+    jellyfish.animations.play('JellyFloat1Smol');
+      if(jellyfish.body.blocked.down){
+               // set player horizontal velocity
+            jellyfish.body.velocity.x = 0;
+            jellyfish.body.velocity.y = -500;
 
         }
                 // the player is definitively not jumping
