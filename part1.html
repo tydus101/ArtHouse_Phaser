@@ -90,11 +90,11 @@ function create() {
 	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 15, true);
 
     //Create Jellyfish
-    jellyfish = game.add.sprite(50, -120, 'jellyfish');
+    jellyfish = game.add.sprite(1000, -120, 'jellyfish');
     //Enable arcade physics on Jellyfish
     game.physics.arcade.enable(jellyfish);
 
-    jellyfish.body.bounce.y = 0.1;
+    //jellyfish.body.bounce.y = 0.1;
     jellyfish.body.gravity.y = 400;
     jellyfish.body.collideWorldBounds = true;
 
