@@ -36,8 +36,9 @@ function preload() {
     game.load.spritesheet('stella_jump', 'assets/StellaJump1Smol.png', 125, 125);
     game.load.spritesheet('stella_fall', 'assets/StellaFall1Smol.png', 125, 120);
     game.load.spritesheet('stella_land', 'assets/StellaLand1Smol.png', 125, 125);
-    game.load.spritesheet('jellyfish', 'assets/JellyFloat1Smol.png', 70, 105);
-    game.load.spritesheet('manta', 'assets/MantaFly1.png', 350, 150);
+    game.load.spritesheet('jellyfish', 'assets/JellyFloat1Smol.png', 63, 105);
+    game.load.spritesheet('manta', 'assets/MantaFly1.png', 350, 155);
+     game.load.spritesheet('butterfly', 'assets/butterfly1.png', 305, 305);
 }
 
 function create() {
@@ -85,24 +86,36 @@ function create() {
 	player.animations.add('jump', [16, 17, 18, 19, 20, 21, 22, 23, 24], 15, true);
 
     //Create Jellyfish
-    jellyfish = game.add.sprite(500, -120, 'jellyfish');
+    jellyfish = game.add.sprite(800, -120, 'jellyfish');
     //Enable arcade physics on Jellyfish
     game.physics.arcade.enable(jellyfish);
 
     //jellyfish.body.bounce.y = 0.1;
-    jellyfish.body.gravity.y = 400;
+    jellyfish.body.gravity.y = 900;
     jellyfish.body.collideWorldBounds = true;
+    jellyfish.animations.add('JellyFloat1Smol', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12, 13, 14, 15, 16], 15, true);
 
     //Create Manta
     manta = game.add.sprite(100, -120, 'manta');
     //Enable arcade physics on Jellyfish
     game.physics.arcade.enable(manta);
 
-    jellyfish.body.bounce.y = 0.1;
+    //manta.body.bounce.y = 0.1;
     //manta.body.gravity.y = 400;
     manta.body.collideWorldBounds = true;
+    manta.animations.add('MantaFly1', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 5, true);
+    //manta.animations.play('MantaFly1');
 
+ //Create Butterfly
+    butterfly = game.add.sprite(900, -120, 'butterfly');
+    //Enable arcade physics on Jellyfish
+    game.physics.arcade.enable(butterfly);
 
+    //manta.body.bounce.y = 0.1;
+    //manta.body.gravity.y = 400;
+    butterfly.body.collideWorldBounds = true;
+    butterfly.animations.add('Butterfly1', [0, 1, ], 5, true);
+    //manta.animations.play('MantaFly1');
 
     // Create a local high score
     var highScore = 100; 
@@ -178,6 +191,7 @@ function update() {
         }
 
   
+    // Jellyfish 
     jellyfish.animations.play('JellyFloat1Smol');
       if(jellyfish.body.blocked.down){
                // set player horizontal velocity
@@ -186,11 +200,21 @@ function update() {
 
         }
 
-         manta.animations.play('MantaFly1');
+   // Manta
+   manta.animations.play('MantaFly1');
       if(manta.body.blocked.down){
                // set player horizontal velocity
             manta.body.velocity.x = 0;
             manta.body.velocity.y = -500;
+
+        }
+
+      // Butterfly
+   butterfly.animations.play('Butterfly1');
+      if(butterfly.body.blocked.down){
+               // set player horizontal velocity
+            butterfly.body.velocity.x = 0;
+            butterfly.body.velocity.y = -500;
 
         }
                 // the player is definitively not jumping
