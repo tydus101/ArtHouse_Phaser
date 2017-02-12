@@ -30,25 +30,30 @@ function preload() {
     game.load.image('cld3', 'assets/bigcloud1-3.png');
     game.load.image('cld4', 'assets/bigcloud1-4.png');
     game.load.image('ground', 'assets/ground1-1.png');
-    game.load.spritesheet('stella1', 'assets/StellaRun1Smol.png', 120, 120);
-    game.load.spritesheet('stella2', 'assets/StellaJump1Smol.png', 120, 120);
-    game.load.spritesheet('stella3', 'assets/StellaFall1Smol.png', 120, 120);
-    game.load.spritesheet('stella4', 'assets/StellaLand1Smol.png', 120, 120);
+    game.load.spritesheet('stella_run', 'assets/StellaRun1Smol.png', 120, 120);
+    game.load.spritesheet('stella_jump', 'assets/StellaJump1Smol.png', 120, 120);
+    game.load.spritesheet('stella_fall', 'assets/StellaFall1Smol.png', 120, 120);
+    game.load.spritesheet('stella_land', 'assets/StellaLand1Smol.png', 120, 120);
 }
 
 function create() {
  //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
-
+    w = game.width;
     //  A simple background for our game
     bg1 = game.add.sprite(0, 0, 'bg1');
-    bg2 = game.add.sprite(1250, 0, 'bg2');
-    bg3 = game.add.sprite(2500, 0, 'bg3');
-    bg4 = game.add.sprite(3750, 0, 'bg4');
+    bg2 = game.add.sprite(w, 0, 'bg2');
+    bg3 = game.add.sprite(2*w, 0, 'bg3');
+    bg4 = game.add.sprite(3*w, 0, 'bg4');
+    cld1 = game.add.sprite(0, -120, 'cld1');
+    cld2 = game.add.sprite(w, -120, 'cld2');
+    cld3 = game.add.sprite(2*w, -120, 'cld3');
+    cld4 = game.add.sprite(3*w, -120, 'cld4');
     mid1 = game.add.sprite(0, -120, 'mid1');
-    mid2 = game.add.sprite(1250, -120, 'mid2');
-    mid3 = game.add.sprite(2500, -120, 'mid3');
-    mid4 = game.add.sprite(3750, -120, 'mid4');
+    mid2 = game.add.sprite(w, -120, 'mid2');
+    mid3 = game.add.sprite(2*w, -120, 'mid3');
+    mid4 = game.add.sprite(3*w, -120, 'mid4');
+
 
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
@@ -58,7 +63,7 @@ function create() {
     platforms.enableBody = true;
 
     // Here we create the ground.
-    var ground = platforms.create(0, -120, 'ground');
+    ground = platforms.create(0, -120, 'ground');
 
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
     ground.scale.setTo(1, 1);
@@ -70,12 +75,11 @@ function create() {
     var ledge = platforms.create(400, 400, 'ground');
 	platforms = game.add.group();
 
-    //player speed
-    playerSpeed = 200;
-
     //Create Stella
-
-	player = game.add.sprite(32, game.world.height - 150, 'stella');
+    player = game.add.sprite(32, game.world.height - 150, 'stella_run');
+    player = game.add.sprite(32, game.world.height - 150, 'stella_jump');
+    player = game.add.sprite(32, game.world.height - 150, 'stella_fall');
+    player = game.add.sprite(32, game.world.height - 150, 'stella_land');
     player.anchor.setTo(.5);
     //Enable arcade physics on Stella
 	game.physics.arcade.enable(player);
@@ -106,22 +110,22 @@ function update() {
 	var hitPlatform = game.physics.arcade.collide(player, platforms); 
    	//Moves the background in parallax
 	var moveBackground = function(background) {      
-		if (background.x < -1250) {        
-			background.x = 3750;        
+		if (background.x < -w) {        
+			background.x = 3*w;        
 			background.x -= 1;      
 		} else {}        
 		background.x -=1;    }
    	//Moves the middleground in parallax
 	var moveMiddleground = function(background) {      
-		if (background.x < -1250) {        
-			background.x = 3750;        
-			background.x -= 2.5;      
+		if (background.x < -w) {        
+			background.x = 3*w;        
+			background.x -= 2.3;      
 		} else {}        
 		background.x -=2.5;    }
 	var moveClouds = function(background) {      
-		if (background.x < -1250) {        
-			background.x = 3750;        
-			background.x -= 2.5;      
+		if (background.x < -w) {        
+			background.x = 3*w;        
+			background.x -= 3.5;      
 		} else {}        
 		background.x -=1.8;    }
 	moveBackground(bg1);    
@@ -132,10 +136,14 @@ function update() {
 	moveMiddleground(mid2);
 	moveMiddleground(mid3);
 	moveMiddleground(mid4);
-	moveMiddleground(mid1);
-	moveMiddleground(mid2);
-	moveMiddleground(mid3);
-	moveMiddleground(mid4);
+
+	moveClouds(cld1);
+	moveClouds(cld2);
+	moveClouds(cld3);
+	moveClouds(cld4);
+
+
+	var hitPlatform = game.physics.arcade.collide(player, ground);
 }
 
   //if playing jumping (when space key is pressed)
@@ -144,9 +152,9 @@ function update() {
       // setting player vertical velocity
         player.body.velocity.y = -100;
           // setting player horizontal velocity
-        player.body.velocity.x = playerSpeed/4; 
+        player.body.velocity.x = 0; 
+
     }
-  
   
 </script>
 
