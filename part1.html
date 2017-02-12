@@ -38,7 +38,7 @@ function preload() {
     game.load.spritesheet('stella_land', 'assets/StellaLand1Smol.png', 125, 125);
     game.load.spritesheet('jellyfish', 'assets/JellyFloat1Smol.png', 63, 105);
     game.load.spritesheet('manta', 'assets/MantaFly1.png', 350, 155);
-     game.load.spritesheet('butterfly', 'assets/butterfly1.png', 305, 305);
+     game.load.spritesheet('butterfly', 'assets/Butterfly1.png', 305, 305);
 }
 
 function create() {
@@ -114,7 +114,7 @@ function create() {
     //manta.body.bounce.y = 0.1;
     //manta.body.gravity.y = 400;
     butterfly.body.collideWorldBounds = true;
-    butterfly.animations.add('Butterfly1', [0, 1, ], 5, true);
+    butterfly.animations.add('Butterfly1', [0, 1, 2,3,4,5,6], 5, true);
     //manta.animations.play('MantaFly1');
 
     // Create a local high score
