@@ -129,12 +129,26 @@ function update() {
 
         //Attempt to Move the Player
 
-         // is the player blocked down, that is: is the player on the floor?
-         if(player.body.blocked.down){
+            // is the player blocked down, that is: is the player on the floor?
+        if(player.body.blocked.down){
                // set player horizontal velocity
             player.body.velocity.x = playerSpeed;
+<<<<<<< Updated upstream
         }
 
+=======
+                // the player is definitively not jumping
+        /*
+        if(player.body.blocked.down && playerJumping = false){
+        // setting player vertical velocity
+        player.body.velocity.y = -100;
+          // setting player horizontal velocity
+        player.body.velocity.x = playerSpeed/4;
+          // now the player is jumping  
+        playerJumping = true;
+        */
+}
+>>>>>>> Stashed changes
 
 </script>
 
