@@ -14,17 +14,21 @@
 
 <script type="text/javascript">
 
-var game = new Phaser.Game(1200, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(1250, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
-    game.load.image('background', 'assets/sky1-1.png');
+    game.load.image('bg1', 'assets/sky1-1.png');
+    game.load.image('bg2', 'assets/sky1-2.png');
+    game.load.image('bg3', 'assets/sky1-3.png');
+    game.load.image('bg4', 'assets/sky1-4.png');
     game.load.image('mid1', 'assets/middleground1-1.png');
-    game.load.image('mid1', 'assets/middleground1-1.png');
-    game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    game.load.image('mid2', 'assets/middleground1-2.png');
+    game.load.image('mid3', 'assets/middleground1-3.png');
+    game.load.image('mid4', 'assets/middleground1-4.png');
+    game.load.image('ground', 'assets/ground1-1.png');
+    game.load.spritesheet('dude', 'assets/StellaRun1.png', 32, 48);
     game.load.spritesheet('bluestar', 
     	'assets/bluestarspin_sheet.png', 32, 48);
-    game.load.spritesheet('ground')
 }
 
 function create() {
@@ -32,7 +36,10 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //  A simple background for our game
-    game.add.sprite(0, 0, 'background');
+    bg1 = game.add.sprite(0, 0, 'bg1');
+    bg2 = game.add.sprite(1250, 0, 'bg2');
+    bg3 = game.add.sprite(2500, 0, 'bg3');
+    bg4 = game.add.sprite(3750, 0, 'bg4');
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
@@ -79,7 +86,18 @@ function create() {
 }
 
 function update() {
-	var hitPlatform = game.physics.arcade.collide(player, platforms);
+	var hitPlatform = game.physics.arcade.collide(player, platforms); 
+   
+	var moveBackground = function(background) {      
+		if (background.x < -1250) {        
+			background.x = 3750;        
+			background.x -= 1;      
+		} else {}        
+		background.x -=1;    }
+	moveBackground(bg1);    
+	moveBackground(bg2);
+	moveBackground(bg3);    
+	moveBackground(bg4); 
 }
 
 </script>
