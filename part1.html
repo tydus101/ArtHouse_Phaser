@@ -30,10 +30,10 @@ function preload() {
     game.load.image('cld3', 'assets/bigcloud1-3.png');
     game.load.image('cld4', 'assets/bigcloud1-4.png');
     game.load.image('ground', 'assets/ground1-1.png');
-    game.load.spritesheet('stella_run', 'assets/StellaRun1Smol.png', 120, 120);
-    game.load.spritesheet('stella_jump', 'assets/StellaJump1Smol.png', 120, 120);
-    game.load.spritesheet('stella_fall', 'assets/StellaFall1Smol.png', 120, 120);
-    game.load.spritesheet('stella_land', 'assets/StellaLand1Smol.png', 120, 120);
+    game.load.spritesheet('stella_run', 'assets/StellaRun1Smol.png', 125, 125);
+    game.load.spritesheet('stella_jump', 'assets/StellaJump1Smol.png', 125, 125);
+    game.load.spritesheet('stella_fall', 'assets/StellaFall1Smol.png', 125, 120);
+    game.load.spritesheet('stella_land', 'assets/StellaLand1Smol.png', 125, 125);
 }
 
 function create() {
@@ -85,7 +85,7 @@ function create() {
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 400;
     player.body.collideWorldBounds = true;
-	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, true);
+	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 15, true);
 
     // Create a local high score
     var highScore = 100; 
@@ -137,8 +137,11 @@ function update() {
 	moveClouds(cld2);
 	moveClouds(cld3);
 	moveClouds(cld4);
-    player.animations.play('right')
+	console.log(player.body.velocity.y);
+    if(player.body.velocity.y > 0){
 
+    	player.animations.play('right');
+    }
 
 	var hitPlatform = game.physics.arcade.collide(player, ground);
       // setting player x speed to zero
@@ -162,17 +165,7 @@ function update() {
           // now the player is jumping  
         playerJumping = true;
         */
-
-	player.body.velocity.y = 0;
-	player.body.velocity.x = 0;
   //if playing jumping (when space key is pressed)
-    if(game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR))
-   {
-      // setting player vertical velocity
-        player.body.velocity.y = 100;
-          // setting player horizontal velocity
-        player.body.velocity.x = 0; 
-    }
   
  }
 </script>
