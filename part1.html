@@ -39,11 +39,15 @@ function preload() {
     //game.load.spritesheet('jellyfish', 'assets/JellyFloat1Smol.png', 63, 105);
     game.load.spritesheet('manta', 'assets/MantaFly1.png', 350, 155);
      game.load.spritesheet('butterfly', 'assets/Butterfly1.png', 305, 305);
+	game.load.audio('musou', 'assets/musou.mp3');
 }
 
 function create() {
  //  We're going to be using physics, so enable the Arcade Physics system
 
+    music = game.add.audio('musou');
+
+    music.play();
     game.physics.startSystem(Phaser.Physics.ARCADE);
     w = game.width;
     //  A simple background for our game
