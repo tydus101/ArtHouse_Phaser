@@ -76,10 +76,8 @@ function create() {
 	platforms = game.add.group();
 
     //Create Stella
-    player = game.add.sprite(32, game.world.height - 150, 'stella_run');
-    player = game.add.sprite(32, game.world.height - 150, 'stella_jump');
-    player = game.add.sprite(32, game.world.height - 150, 'stella_fall');
-    player = game.add.sprite(32, game.world.height - 150, 'stella_land');
+
+	player = game.add.sprite(32, game.world.height - 150, 'stella_run');
     player.anchor.setTo(.5);
     //Enable arcade physics on Stella
 	game.physics.arcade.enable(player);
@@ -87,8 +85,7 @@ function create() {
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 400;
     player.body.collideWorldBounds = true;
-	player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
+	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, true);
 
     // Create a local high score
     var highScore = 100; 
@@ -136,26 +133,48 @@ function update() {
 	moveMiddleground(mid2);
 	moveMiddleground(mid3);
 	moveMiddleground(mid4);
-
 	moveClouds(cld1);
 	moveClouds(cld2);
 	moveClouds(cld3);
 	moveClouds(cld4);
+    player.animations.play('right')
 
 
 	var hitPlatform = game.physics.arcade.collide(player, ground);
-}
+      // setting player x speed to zero
+      player.body.velocity.x = 0;
 
+        //Attempt to Move the Player
+
+            // is the player blocked down, that is: is the player on the floor?
+        if(player.body.blocked.down){
+               // set player horizontal velocity
+            player.body.velocity.x = 0;
+
+        }
+                // the player is definitively not jumping
+        /*
+        if(player.body.blocked.down && playerJumping = false){
+        // setting player vertical velocity
+        player.body.velocity.y = -100;
+          // setting player horizontal velocity
+        player.body.velocity.x = playerSpeed/4;
+          // now the player is jumping  
+        playerJumping = true;
+        */
+
+	player.body.velocity.y = 0;
+	player.body.velocity.x = 0;
   //if playing jumping (when space key is pressed)
     if(game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR))
    {
       // setting player vertical velocity
-        player.body.velocity.y = -100;
+        player.body.velocity.y = 100;
           // setting player horizontal velocity
         player.body.velocity.x = 0; 
-
     }
   
+ }
 </script>
 
 </body>
