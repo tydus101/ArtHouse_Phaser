@@ -75,7 +75,7 @@ function create() {
 
     //Create Stella
 
-	player = game.add.sprite(60, game.world.height - 150, 'stella');
+	player = game.add.sprite(60, game.world.height - 150, 'stella_run');
     //Enable arcade physics on Stella
 	game.physics.arcade.enable(player);
 
@@ -171,7 +171,7 @@ function update() {
 
     if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer)
     {
-    	player.animations.toggleAnimation('right');
+    	player.toggleAnimation('right');
         player.body.velocity.y = -500;
         jumpTimer = game.time.now + 750;
     }
