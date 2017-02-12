@@ -126,14 +126,14 @@ function create() {
     localStorage.setItem("sleepyStarryHighScore", highScore); // game-specific key in case you later run another game on the same domain
 
     // Sets the High Score
-    var highScoreToDisplay = 0;
+    //var highScoreToDisplay = 0;
     
     // Retrieves the high score
-    if (localStorage.getItem("sleepyStarryHighScore") !== null) {
-    highScoreToDisplay = parseInt(localStorage.getItem("sleepyStarryHighScore"));
-}
+    //if (localStorage.getItem("sleepyStarryHighScore") !== null) {
+    //highScoreToDisplay = parseInt(localStorage.getItem("sleepyStarryHighScore"));
+//}
     // Displays the High Score
-    var gameOverText = this.game.add.text(5, 10, "High Score: " +highScoreToDisplay.toString(), {font: "20pt Arial", fill: "#FFFFFF"});
+    var titleText = this.game.add.text(550, 10, " Stella Chaser", {font: "20pt Arial", fill: "#FFFFFF"});
 }
 
 
