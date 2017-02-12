@@ -29,7 +29,7 @@ function preload() {
     game.load.spritesheet('dude', 'assets/StellaRun1.png', 32, 48);
     game.load.spritesheet('bluestar', 
     	'assets/bluestarspin_sheet.png', 32, 48);
-    game.load.spritesheet('stella', 'assets/StellaRun1.png', 100, 250);
+    game.load.spritesheet('stella', 'assets/StellaRun1Smol.png', 100, 250);
 }
 
 function create() {
@@ -108,6 +108,12 @@ function update() {
 	var hitPlatform = game.physics.arcade.collide(player, platforms); 
    
 	var moveBackground = function(background) {      
+		if (background.x < -1250) {        
+			background.x = 3750;        
+			background.x -= 1;      
+		} else {}        
+		background.x -=1;    }
+	var moveMiddleground = function(middleground) {      
 		if (background.x < -1250) {        
 			background.x = 3750;        
 			background.x -= 1;      
