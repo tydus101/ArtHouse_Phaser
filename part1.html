@@ -25,8 +25,12 @@ function preload() {
     game.load.image('mid2', 'assets/middleground1-2.png');
     game.load.image('mid3', 'assets/middleground1-3.png');
     game.load.image('mid4', 'assets/middleground1-4.png');
+    game.load.image('cld1', 'assets/bigcloud1-1.png');
+    game.load.image('cld2', 'assets/bigcloud1-2.png');
+    game.load.image('cld3', 'assets/bigcloud1-3.png');
+    game.load.image('cld4', 'assets/bigcloud1-4.png');
     game.load.image('ground', 'assets/ground1-1.png');
-    game.load.spritesheet('stella', 'assets/StellaRun1Smol.png', 100, 100);
+    game.load.spritesheet('stella', 'assets/StellaRun1Smol.png', 120, 120);
 }
 
 function create() {
@@ -100,23 +104,34 @@ function create() {
 
 function update() {
 	var hitPlatform = game.physics.arcade.collide(player, platforms); 
-   
+   	//Moves the background in parallax
 	var moveBackground = function(background) {      
 		if (background.x < -1250) {        
 			background.x = 3750;        
 			background.x -= 1;      
 		} else {}        
 		background.x -=1;    }
+   	//Moves the middleground in parallax
 	var moveMiddleground = function(background) {      
 		if (background.x < -1250) {        
 			background.x = 3750;        
 			background.x -= 2.5;      
 		} else {}        
 		background.x -=2.5;    }
+	var moveClouds = function(background) {      
+		if (background.x < -1250) {        
+			background.x = 3750;        
+			background.x -= 2.5;      
+		} else {}        
+		background.x -=1.8;    }
 	moveBackground(bg1);    
 	moveBackground(bg2);
 	moveBackground(bg3);    
 	moveBackground(bg4);
+	moveMiddleground(mid1);
+	moveMiddleground(mid2);
+	moveMiddleground(mid3);
+	moveMiddleground(mid4);
 	moveMiddleground(mid1);
 	moveMiddleground(mid2);
 	moveMiddleground(mid3);
